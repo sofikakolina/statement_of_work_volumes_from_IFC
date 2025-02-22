@@ -1,42 +1,47 @@
 import ifcopenshell
-import pandas as pd
 
-# Загрузка IFC-файла
-ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
 
-# Создание списка для хранения данных
-data = []
+def calculate_stair_volume(ifc_file_path):
+    model = ifcopenshell.open(ifc_file_path)
+    stairs = model.by_type("IfcStair")
+    total_volume = 0
 
-# Перебор всех элементов в IFC-файле
-for element in ifc_file.by_type('IfcProduct'):
-    element_info = {
-        'Type': element.is_a(),
-        'GlobalId': element.GlobalId,
-        'Name': element.Name if hasattr(element, 'Name') else None,
-        'Description': element.Description if hasattr(element, 'Description') else None,
-        'Volume': None
-    }
+    for stair in stairs:
+        volume = 0
 
-    # Проверка наличия атрибута Representation и его значения
-    if hasattr(element, 'Representation') and element.Representation is not None:
-        for rep in element.Representation.Representations:
-            if rep.is_a('IfcShapeRepresentation'):
-                for item in rep.Items:
-                    if item.is_a('IfcExtrudedAreaSolid'):
-                        if hasattr(item, 'SweptArea'):
-                            if item.SweptArea.is_a('IfcRectangleProfileDef'):
-                                length = item.Depth
-                                width = item.SweptArea.XDim
-                                height = item.SweptArea.YDim
-                                element_info['Volume'] = length * width * height
-                            # Добавьте другие типы профилей по необходимости
+        # Проверяем, есть ли объем в количественных свойствах
+        if stair.IsDefinedBy:
+            for relation in stair.IsDefinedBy:
+                if hasattr(relation, 'RelatingPropertyDefinition'):
+                    prop_def = relation.RelatingPropertyDefinition
+                    if prop_def.is_a("IfcElementQuantity"):
+                        for quantity in prop_def.Quantities:
+                            if quantity.is_a("IfcQuantityVolume"):
+                                volume = quantity.VolumeValue
 
-    data.append(element_info)
+        # Если объем не найден в свойствах, пробуем вычислить из геометрии
+        if volume == 0 and hasattr(stair, 'Representation') and stair.Representation:
+            for rep in stair.Representation.Representations:
+                if rep.is_a("IfcShapeRepresentation"):
+                    for item in rep.Items:
+                        if item.is_a("IfcExtrudedAreaSolid"):
+                            base_area = item.SweptArea.AreaValue if hasattr(item.SweptArea, 'AreaValue') else 0
+                            height = item.Depth if hasattr(item, 'Depth') else 0
+                            volume = base_area * height
+                        elif item.is_a("IfcBooleanResult"):
+                            print(f"{stair.Name} использует булеву операцию, объем может быть сложнее.")
+                        elif item.is_a("IfcMappedItem"):
+                            print(f"{stair.Name} использует IfcMappedItem, возможно дублирование геометрии.")
+                        elif item.is_a("IfcSolidModel"):
+                            print(f"{stair.Name} представлена как SolidModel, попробуйте другое ПО для анализа.")
 
-# Создание DataFrame
-df = pd.DataFrame(data)
+        print(f"Лестница {stair.Name}: объем = {volume} м³")
+        total_volume += volume
 
-# Экспорт в Excel
-df.to_excel('volume_statement.xlsx', index=False)
+    print(f"Общий объем всех лестниц: {total_volume} м³")
+    return total_volume
 
-print("Ведомость объемов работ успешно экспортирована в volume_statement.xlsx")
+
+# Укажите путь к вашему IFC файлу
+ifc_file_path = ('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
+calculate_stair_volume(ifc_file_path)

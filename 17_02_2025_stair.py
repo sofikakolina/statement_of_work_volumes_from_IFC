@@ -1,14 +1,15 @@
 import ifcopenshell
 
 # Загрузка IFC файла
-ifc_file = ifcopenshell.open('КолдинТЭ_2-2_revit.ifc')
+ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
 
 # Функция для извлечения параметров лестницы и расчета объема бетона
 def calculate_concrete_volume_for_stairs(ifc_file):
     stairs_info = []
+    railings_info = []
 
-    # Получение всех элементов IfcStair (лестницы)
-    stairs = ifc_file.by_type('IfcStair')
+    # Получение всех элементов IfcStair и IfcStairFlight
+    stairs = ifc_file.by_type('IfcStair') + ifc_file.by_type('IfcStairFlight')
 
     for stair in stairs:
         stair_name = getattr(stair, 'Name', 'Unnamed Stair')
@@ -63,12 +64,53 @@ def calculate_concrete_volume_for_stairs(ifc_file):
             'Volume': volume
         })
 
-    return stairs_info
+    # Получение всех элементов IfcRailing (перила)
+    railings = ifc_file.by_type('IfcRailing')
 
-# Получение информации о лестницах и расчет объема бетона
-stairs_info = calculate_concrete_volume_for_stairs(ifc_file)
+    for railing in railings:
+        railing_name = getattr(railing, 'Name', 'Unnamed Railing')
+        railing_global_id = getattr(railing, 'GlobalId', 'N/A')
 
-# Вывод информации
+        # Извлечение параметров перил из свойств (Pset_RailingCommon)
+        railing_length = None
+        railing_height = None
+        railing_material = None
+
+        for rel_defines in railing.IsDefinedBy:
+            if rel_defines.is_a('IfcRelDefinesByProperties'):
+                property_set = rel_defines.RelatingPropertyDefinition
+                if property_set.is_a('IfcPropertySet'):
+                    if property_set.Name == 'Pset_RailingCommon':
+                        for property in property_set.HasProperties:
+                            if property.Name == 'Length':
+                                railing_length = property.NominalValue.wrappedValue if property.NominalValue else None
+                            elif property.Name == 'Height':
+                                railing_height = property.NominalValue.wrappedValue if property.NominalValue else None
+                            elif property.Name == 'Material':
+                                railing_material = property.NominalValue.wrappedValue if property.NominalValue else None
+
+        # Если параметры не найдены, используем значения по умолчанию
+        if railing_length is None:
+            railing_length = 1000  # мм (значение по умолчанию)
+        if railing_height is None:
+            railing_height = 900  # мм (значение по умолчанию)
+        if railing_material is None:
+            railing_material = 'Не указан'
+
+        railings_info.append({
+            'Name': railing_name,
+            'GlobalId': railing_global_id,
+            'Length': railing_length,
+            'Height': railing_height,
+            'Material': railing_material
+        })
+
+    return stairs_info, railings_info
+
+# Получение информации о лестницах и перилах
+stairs_info, railings_info = calculate_concrete_volume_for_stairs(ifc_file)
+
+# Вывод информации о лестницах
 if stairs_info:
     print(f"Количество лестниц в проекте: {len(stairs_info)}")
     for idx, stair in enumerate(stairs_info, start=1):
@@ -82,3 +124,16 @@ if stairs_info:
         print(f"  Расчетный объем бетона: {stair['Volume']:.3f} м³")
 else:
     print("Лестницы не найдены.")
+
+# Вывод информации о перилах
+if railings_info:
+    print(f"\nКоличество перил в проекте: {len(railings_info)}")
+    for idx, railing in enumerate(railings_info, start=1):
+        print(f"\nПерила {idx}:")
+        print(f"  Название: {railing['Name']}")
+        print(f"  GlobalId: {railing['GlobalId']}")
+        print(f"  Длина: {railing['Length']} мм")
+        print(f"  Высота: {railing['Height']} мм")
+        print(f"  Материал: {railing['Material']}")
+else:
+    print("\nПерила не найдены.")

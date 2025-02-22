@@ -1,7 +1,8 @@
 import ifcopenshell
+import ifcopenshell.geom
 
 # Загрузка IFC файла
-ifc_file = ifcopenshell.open('КолдинТЭ_2-2_revit.ifc')
+ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
 
 # Функция для извлечения информации о крыше и материалах
 def get_roof_info(ifc_file):
@@ -28,13 +29,24 @@ def get_roof_info(ifc_file):
                         if hasattr(layer, 'Material'):
                             materials.append(layer.Material.Name)
 
-        roofs_info.append({
-            'Name': roof_name,
-            'GlobalId': roof_global_id,
-            'Type': roof_type,
-            'Description': roof_description,
-            'Materials': materials
-        })
+        # Проверка наличия геометрии у крыши
+        has_geometry = False
+        settings = ifcopenshell.geom.settings()
+        try:
+            geometry = ifcopenshell.geom.create_shape(settings, roof)
+            if geometry:
+                has_geometry = True
+        except Exception as e:
+            print(f"Ошибка при обработке геометрии крыши {roof_name}: {e}")
+        if (has_geometry):
+            roofs_info.append({
+                'Name': roof_name,
+                'GlobalId': roof_global_id,
+                'Type': roof_type,
+                'Description': roof_description,
+                'Materials': materials,
+                'HasGeometry': has_geometry
+            })
 
     return roofs_info
 
@@ -51,5 +63,6 @@ if roofs_info:
         print(f"  Тип: {roof['Type']}")
         print(f"  Описание: {roof['Description']}")
         print(f"  Материалы: {', '.join(roof['Materials']) if roof['Materials'] else 'N/A'}")
+        print(f"  Наличие геометрии: {'Да' if roof['HasGeometry'] else 'Нет'}")
 else:
     print("Крыши не найдены.")
