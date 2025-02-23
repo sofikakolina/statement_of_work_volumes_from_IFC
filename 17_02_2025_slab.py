@@ -5,6 +5,7 @@ import numpy as np
 # Загрузка IFC файла
 ifc_file = ifcopenshell.open('КолдинТЭ_2-2_revit.ifc')
 ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
+ifc_file = ifcopenshell.open('Renga.ifc')
 
 # Функция для расчета объема по геометрии
 def calculate_volume(geometry):
@@ -74,13 +75,12 @@ slabs_info = get_slabs_info_with_volume(ifc_file)
 if slabs_info:
     print(f"Количество перекрытий в проекте: {len(slabs_info)}")
     for idx, slab in enumerate(slabs_info, start=1):
-        if (slab['GlobalId'] == "2Sd7aqpxv4yBt5eyH2CASV"):
-            print(f"\nПерекрытие {idx}:")
-            print(f"  Название: {slab['Name']}")
-            print(f"  GlobalId: {slab['GlobalId']}")
-            print(f"  Тип: {slab['Type']}")
-            print(f"  Описание: {slab['Description']}")
-            print(f"  Материалы: {', '.join(slab['Materials']) if slab['Materials'] else 'N/A'}")
-            print(f"  Объем: {slab['Volume']:.2f} м³")
+        print(f"\nПерекрытие {idx}:")
+        print(f"  Название: {slab['Name']}")
+        print(f"  GlobalId: {slab['GlobalId']}")
+        print(f"  Тип: {slab['Type']}")
+        print(f"  Описание: {slab['Description']}")
+        print(f"  Материалы: {', '.join(slab['Materials']) if slab['Materials'] else 'N/A'}")
+        print(f"  Объем: {slab['Volume']:.2f} м³")
 else:
     print("Перекрытия не найдены.")

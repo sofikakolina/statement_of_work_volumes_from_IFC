@@ -3,6 +3,7 @@ import ifcopenshell.geom
 
 # Загрузка IFC файла
 ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
+ifc_file = ifcopenshell.open('Renga.ifc')
 
 # Функция для извлечения информации о крыше и материалах
 def get_roof_info(ifc_file):

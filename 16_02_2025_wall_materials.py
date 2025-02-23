@@ -4,6 +4,7 @@ import numpy as np
 
 # Загрузка IFC файла
 ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
+ifc_file = ifcopenshell.open('Renga.ifc')
 
 # Функция для расчета площади полигона
 def calculate_polygon_area(vertices):
@@ -82,14 +83,13 @@ walls_info = extract_wall_info(ifc_file)
 # Вывод данных
 if walls_info:
     for wall in walls_info:
-        if (wall['GlobalId'] == '3Zi8O4aG98WQVzjdUxGVtH'):
-            print(f"Стена:")
-            print(f"  Название: {wall['Name']}")
-            print(f"  GlobalId: {wall['GlobalId']}")
-            print(f"  Тип: {wall['Type']}")
-            print(f"  Описание: {wall['Description']}")
-            print(f"  Материалы: {', '.join(wall['Materials']) if wall['Materials'] else 'N/A'}")
-            print(f"  Наличие геометрии: {'Да' if wall['HasGeometry'] else 'Нет'}")
-            print()
+        print(f"Стена:")
+        print(f"  Название: {wall['Name']}")
+        print(f"  GlobalId: {wall['GlobalId']}")
+        print(f"  Тип: {wall['Type']}")
+        print(f"  Описание: {wall['Description']}")
+        print(f"  Материалы: {', '.join(wall['Materials']) if wall['Materials'] else 'N/A'}")
+        print(f"  Наличие геометрии: {'Да' if wall['HasGeometry'] else 'Нет'}")
+        print()
 else:
     print("Стены не найдены.")
