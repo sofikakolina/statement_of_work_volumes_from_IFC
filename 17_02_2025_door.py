@@ -22,19 +22,15 @@ def extract_dimensions_from_object_type(object_type):
 # Функция для извлечения информации о дверях
 def get_doors_info(ifc_file):
     doors_info = []
-
     # Получение всех элементов IfcDoor (двери)
     doors = ifc_file.by_type('IfcDoor')
-
     for door in doors:
         door_name = getattr(door, 'Name', 'Unnamed Door')
         door_global_id = getattr(door, 'GlobalId', 'N/A')
         door_type = getattr(door, 'ObjectType', 'N/A')
         door_description = getattr(door, 'Description', 'N/A')
-
         # Извлечение размеров двери (ширина и высота) из ObjectType
         door_width, door_height = extract_dimensions_from_object_type(door_type)
-
         # Проверка наличия геометрии
         has_geometry = False
         settings = ifcopenshell.geom.settings()
@@ -44,7 +40,6 @@ def get_doors_info(ifc_file):
                 has_geometry = True
         except Exception as e:
             print(f"Ошибка при обработке геометрии двери {door_name}: {e}")
-
         if (door_width!=None or door_height!=None):
             doors_info.append({
                 'Name': door_name,
@@ -55,7 +50,6 @@ def get_doors_info(ifc_file):
                 'Height': door_height,
                 'HasGeometry': has_geometry
             })
-
     return doors_info
 
 

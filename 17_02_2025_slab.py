@@ -1,40 +1,36 @@
 import ifcopenshell
 import ifcopenshell.geom
 import numpy as np
+import xml.etree.ElementTree as ET  # Импортируем библиотеку для работы с XML
 
 # Загрузка IFC файла
 ifc_file = ifcopenshell.open('КолдинТЭ_2-2_revit.ifc')
-ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
-ifc_file = ifcopenshell.open('Renga.ifc')
+# ifc_file = ifcopenshell.open('TIM-analytic_tools_MGUU_VC_cource-main/DataExamples/AR_WIP_348_ALL_KI_SP_R21_отсоединено_ifc_4.ifc')
+# ifc_file = ifcopenshell.open('Renga.ifc')
 
 # Функция для расчета объема по геометрии
 def calculate_volume(geometry):
     """Вычисляет объем объекта по его геометрии."""
     verts = np.array(geometry.verts).reshape(-1, 3)  # Вершины
     faces = np.array(geometry.faces).reshape(-1, 3)  # Грани
-
     volume = 0.0
     for face in faces:
         # Получаем вершины для текущей грани
         v0, v1, v2 = verts[face]
         # Вычисляем объем тетраэдра, образованного гранью и началом координат
         volume += np.dot(v0, np.cross(v1, v2)) / 6.0
-
     return abs(volume)  # Возвращаем абсолютное значение объема
 
 # Функция для извлечения информации о перекрытиях и расчета их объема
 def get_slabs_info_with_volume(ifc_file):
     slabs_info = []
-
     # Получение всех элементов IfcSlab (перекрытия)
     slabs = ifc_file.by_type('IfcSlab')
-
     for slab in slabs:
         slab_name = getattr(slab, 'Name', 'Unnamed Slab')
         slab_global_id = getattr(slab, 'GlobalId', 'N/A')
         slab_type = getattr(slab, 'ObjectType', 'N/A')
         slab_description = getattr(slab, 'Description', 'N/A')
-
         # Извлечение материалов, связанных с перекрытием
         materials = []
         for rel in getattr(slab, 'HasAssociations', []):
@@ -46,7 +42,6 @@ def get_slabs_info_with_volume(ifc_file):
                     for layer in material.MaterialLayers:
                         if hasattr(layer, 'Material'):
                             materials.append(layer.Material.Name)
-
         # Получение геометрических данных перекрытия и расчет объема
         volume = 0.0
         settings = ifcopenshell.geom.settings()
@@ -56,7 +51,6 @@ def get_slabs_info_with_volume(ifc_file):
                 volume = calculate_volume(geometry.geometry)
         except Exception as e:
             print(f"Ошибка при обработке перекрытия {slab_name}: {e}")
-
         slabs_info.append({
             'Name': slab_name,
             'GlobalId': slab_global_id,
@@ -65,7 +59,6 @@ def get_slabs_info_with_volume(ifc_file):
             'Materials': materials,
             'Volume': volume
         })
-
     return slabs_info
 
 # Получение информации о перекрытиях
@@ -84,3 +77,27 @@ if slabs_info:
         print(f"  Объем: {slab['Volume']:.2f} м³")
 else:
     print("Перекрытия не найдены.")
+
+# Сохранение данных в XML
+if slabs_info:
+    # Создаем корневой элемент XML
+    root = ET.Element("Slabs")
+
+    # Добавляем информацию о каждом перекрытии
+    for slab in slabs_info:
+        slab_element = ET.SubElement(root, "Slab")
+        ET.SubElement(slab_element, "Name").text = slab['Name']
+        ET.SubElement(slab_element, "GlobalId").text = slab['GlobalId']
+        ET.SubElement(slab_element, "Type").text = slab['Type']
+        ET.SubElement(slab_element, "Description").text = slab['Description']
+        materials_element = ET.SubElement(slab_element, "Materials")
+        for material in slab['Materials']:
+            ET.SubElement(materials_element, "Material").text = material
+        ET.SubElement(slab_element, "Volume").text = f"{slab['Volume']:.2f}"
+
+    # Создаем XML-дерево и записываем его в файл
+    tree = ET.ElementTree(root)
+    tree.write("slabs_info.xml", encoding="utf-8", xml_declaration=True)
+    print("Данные о перекрытиях сохранены в файл 'slabs_info.xml'.")
+else:
+    print("Нет данных для сохранения.")

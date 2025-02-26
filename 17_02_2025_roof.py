@@ -39,6 +39,8 @@ def get_roof_info(ifc_file):
                 has_geometry = True
         except Exception as e:
             print(f"Ошибка при обработке геометрии крыши {roof_name}: {e}")
+
+
         if (has_geometry):
             roofs_info.append({
                 'Name': roof_name,

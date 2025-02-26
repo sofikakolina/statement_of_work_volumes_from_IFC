@@ -23,13 +23,11 @@ def extract_wall_info(ifc_file):
         wall_global_id = getattr(wall, 'GlobalId', 'N/A')
         wall_type = getattr(wall, 'ObjectType', 'N/A')
         wall_description = getattr(wall, 'Description', 'None')
-
         # Получение материалов, связанных с текущей стеной
         materials = []
         for rel in getattr(wall, 'HasAssociations', []):
             if rel.is_a('IfcRelAssociatesMaterial'):
                 material = rel.RelatingMaterial
-
                 # Обработка различных типов материалов
                 if material.is_a('IfcMaterial'):
                     materials.append(material.Name)

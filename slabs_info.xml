@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Slabs>
+    <Slab>
+        <Name>Перекрытие:Бетон-Промышленный 362мм:303739</Name>
+        <GlobalId>1tXhHpZgHDpB0Z2G5PIjDP</GlobalId>
+        <Type>Перекрытие:Бетон-Промышленный 362мм</Type>
+        <Description />
+        <Materials />
+        <Volume>45.27</Volume>
+    </Slab>
+    <Slab>
+        <Name>Перекрытие:Типовой 150мм:348632</Name>
+        <GlobalId>0n3qNE19H6RxALlbfWC7lc</GlobalId>
+        <Type>Перекрытие:Типовой 150мм</Type>
+        <Description />
+        <Materials />
+        <Volume>17.83</Volume>
+    </Slab>
+    <Slab>
+        <Name>Базовая крыша:Типовой - 400мм:350397</Name>
+        <GlobalId>03rbu6L858geZOjPG9$pJE</GlobalId>
+        <Type>Базовая крыша:Типовой - 400мм</Type>
+        <Description />
+        <Materials><Material>Крыша по умолчанию</Material>
+    </Materials><Volume>15.78</Volume></Slab><Slab><Name>Базовая крыша:Типовой - 400мм:359693</Name><GlobalId>30mNQ43Uv1SADFyYuEjPd3</GlobalId><Type>Базовая крыша:Типовой - 400мм</Type><Description /><Materials><Material>Крыша по умолчанию</Material></Materials><Volume>10.15</Volume></Slab><Slab><Name>Перекрытие:Типовой 150мм:371011</Name><GlobalId>15qPnxDaL8YwgOBN_7gD9J</GlobalId><Type>Перекрытие:Типовой 150мм</Type><Description /><Materials /><Volume>3.73</Volume></Slab><Slab><Name>Базовая крыша:Типовой - 125мм:421055</Name><GlobalId>1IpdJQEDv01e40e38rcfBZ</GlobalId><Type>Базовая крыша:Типовой - 125мм</Type><Description /><Materials><Material>Крыша по умолчанию</Material></Materials><Volume>0.03</Volume></Slab><Slab><Name>Базовая крыша:Типовой - 125мм:421055</Name><GlobalId>1IpdJQEDv01e40e3CrcfBZ</GlobalId><Type>Базовая крыша:Типовой - 125мм</Type><Description /><Materials><Material>Крыша по умолчанию</Material></Materials><Volume>0.04</Volume></Slab><Slab><Name>Базовая крыша:Типовой - 125мм:421055</Name><GlobalId>1IpdJQEDv01e40e3GrcfBZ</GlobalId><Type>Базовая крыша:Типовой - 125мм</Type><Description /><Materials><Material>Крыша по умолчанию</Material></Materials><Volume>0.03</Volume></Slab><Slab><Name>Базовая крыша:Типовой - 125мм:421055</Name><GlobalId>1IpdJQEDv01e40e3KrcfBZ</GlobalId><Type>Базовая крыша:Типовой - 125мм</Type><Description /><Materials><Material>Крыша по умолчанию</Material></Materials><Volume>0.04</Volume></Slab><Slab><Name>Основание:Основание 1:549876</Name><GlobalId>1BmUyztwPFvgMNbXtWTsFC</GlobalId><Type>Основание:Основание 1</Type><Description /><Materials /><Volume>25.02</Volume></Slab><Slab><Name>Монолитная лестница:Лестница:559773 Landing 1</Name><GlobalId>2CsymE2xfDZhgJ_P0rCz75</GlobalId><Type>Монолитная площадка:Толщина 300 мм</Type><Description /><Materials><Material>Бетон, монолитный</Material></Materials><Volume>0.68</Volume></Slab><Slab><Name>Монолитная лестница:Лестница:559773 Landing 2</Name><GlobalId>2CsymE2xfDZhgJ_P0rCzE_</GlobalId><Type>Монолитная площадка:Толщина 300 мм</Type><Description /><Materials><Material>Бетон, монолитный</Material></Materials><Volume>0.06</Volume></Slab></Slabs>

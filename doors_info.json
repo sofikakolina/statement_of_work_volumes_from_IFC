@@ -1,0 +1,119 @@
+[
+    {
+        "Name": "Дверь-Маятниковая-Одинарная-Щитовая-Двусторонняя:900 x 2000 мм:327429",
+        "GlobalId": "3IbGb5MqD4EQ2p6YqSW16d",
+        "Type": "Дверь-Маятниковая-Одинарная-Щитовая-Двусторонняя:900 x 2000 мм",
+        "Description": null,
+        "Width": 900.0,
+        "Height": 2000.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Дверь-Маятниковая-Одинарная-Один_прозрачный фрагмент:750 x 2000 мм:327572",
+        "GlobalId": "3IbGb5MqD4EQ2p6YqSW14s",
+        "Type": "Дверь-Маятниковая-Одинарная-Один_прозрачный фрагмент:750 x 2000 мм",
+        "Description": null,
+        "Width": 750.0,
+        "Height": 2000.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Дверь-Внутренняя-Одинарная-2_Панель-Дерево:900 x 2000 мм:332622",
+        "GlobalId": "3IbGb5MqD4EQ2p6YqSWVti",
+        "Type": "Дверь-Внутренняя-Одинарная-2_Панель-Дерево:900 x 2000 мм",
+        "Description": null,
+        "Width": 900.0,
+        "Height": 2000.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Дверь-Внутренняя-Одинарная-2_Панель-Дерево:900 x 2000 мм:336144",
+        "GlobalId": "3IbGb5MqD4EQ2p6YqSWS_o",
+        "Type": "Дверь-Внутренняя-Одинарная-2_Панель-Дерево:900 x 2000 мм",
+        "Description": null,
+        "Width": 900.0,
+        "Height": 2000.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Дверь-Внутренняя-Одинарная-2_Панель-Дерево:900 x 2000 мм:337021",
+        "GlobalId": "3IbGb5MqD4EQ2p6YqSWShV",
+        "Type": "Дверь-Внутренняя-Одинарная-2_Панель-Дерево:900 x 2000 мм",
+        "Description": null,
+        "Width": 900.0,
+        "Height": 2000.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Дверь-Внутренняя-Двойная-Раздвижная-2_Панель-Дерево:1800 x 2000 мм:338977",
+        "GlobalId": "3IbGb5MqD4EQ2p6YqSWSA3",
+        "Type": "Дверь-Внутренняя-Двойная-Раздвижная-2_Панель-Дерево:1800 x 2000 мм",
+        "Description": null,
+        "Width": 1800.0,
+        "Height": 2000.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Дверь-Гаражная-Щитовая_Панель:2400 x 2100 мм:375506",
+        "GlobalId": "15qPnxDaL8YwgOBN_7gC72",
+        "Type": "Дверь-Гаражная-Щитовая_Панель:2400 x 2100 мм",
+        "Description": null,
+        "Width": 2400.0,
+        "Height": 2100.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Одиночные-Щитовые:0915 x 2134 мм:468633",
+        "GlobalId": "2T6x7SLOnDRf0biZOoQar3",
+        "Type": "Одиночные-Щитовые:0915 x 2134 мм",
+        "Description": null,
+        "Width": 915.0,
+        "Height": 2134.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Одиночные-Щитовые:0915 x 2134 мм:496429",
+        "GlobalId": "3hYCXmN6v79Oc8qiv$vEiR",
+        "Type": "Одиночные-Щитовые:0915 x 2134 мм",
+        "Description": null,
+        "Width": 915.0,
+        "Height": 2134.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Одиночные-Щитовые:0915 x 2134 мм:496478",
+        "GlobalId": "3hYCXmN6v79Oc8qiv$vEje",
+        "Type": "Одиночные-Щитовые:0915 x 2134 мм",
+        "Description": null,
+        "Width": 915.0,
+        "Height": 2134.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Одиночные-Щитовые:0915 x 2134 мм:496530",
+        "GlobalId": "3hYCXmN6v79Oc8qiv$vEka",
+        "Type": "Одиночные-Щитовые:0915 x 2134 мм",
+        "Description": null,
+        "Width": 915.0,
+        "Height": 2134.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Одиночные-Щитовые:0915 x 2134 мм:496595",
+        "GlobalId": "3hYCXmN6v79Oc8qiv$vElb",
+        "Type": "Одиночные-Щитовые:0915 x 2134 мм",
+        "Description": null,
+        "Width": 915.0,
+        "Height": 2134.0,
+        "HasGeometry": true
+    },
+    {
+        "Name": "Одиночные-Щитовые:0915 x 2134 мм:496663",
+        "GlobalId": "3hYCXmN6v79Oc8qiv$vEmX",
+        "Type": "Одиночные-Щитовые:0915 x 2134 мм",
+        "Description": null,
+        "Width": 915.0,
+        "Height": 2134.0,
+        "HasGeometry": true
+    }
+]
